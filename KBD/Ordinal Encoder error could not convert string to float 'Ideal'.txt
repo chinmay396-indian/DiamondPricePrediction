@@ -1,0 +1,24 @@
+While running training_pipeline.py, I encountered the following error:
+ValueError: could not convert string to float: 'Ideal'
+During investigation, I found that RCA of error was at line 9 of the below code:
+
+cat_pipeline = Pipeline(
+                steps=[
+                    ('imputer', SimpleImputer(strategy='most_frequent')),
+                    ('scaler', StandardScaler()),
+					('encoder', OrdinalEncoder(categories=[cut_categories, color_categories, clarity_categories]))
+                    
+                ]
+            )
+
+After replacing the entire highlighted line before the line at 8 position. below is the corrected code:
+	
+cat_pipeline = Pipeline(
+                steps=[
+                    ('imputer', SimpleImputer(strategy='most_frequent')),
+					('encoder', OrdinalEncoder(categories=[cut_categories, color_categories, clarity_categories])),
+                    ('scaler', StandardScaler())
+					
+                    
+                ]
+            )	
